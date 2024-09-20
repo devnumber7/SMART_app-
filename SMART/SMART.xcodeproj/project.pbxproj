@@ -29,9 +29,22 @@
 		BE08EC0A2C9D13FE0074C285 /* SMARTUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SMARTUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BE08EC252C9D1C9D0074C285 /* Exceptions for "SMART" folder in "SMARTTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/File.swift,
+			);
+			target = BE08EBFF2C9D13FE0074C285 /* SMARTTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		BE08EBF02C9D13FB0074C285 /* SMART */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BE08EC252C9D1C9D0074C285 /* Exceptions for "SMART" folder in "SMARTTests" target */,
+			);
 			path = SMART;
 			sourceTree = "<group>";
 		};
