@@ -33,9 +33,27 @@
 		BE08EC252C9D1C9D0074C285 /* Exceptions for "SMART" folder in "SMARTTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Models/File.swift,
+				Frontend/Models/File.swift,
+				Frontend/SMARTTests/SMARTTests.swift,
 			);
 			target = BE08EBFF2C9D13FE0074C285 /* SMARTTests */;
+		};
+		E34ED2132CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMART" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Frontend/SMARTTests/SMARTTests.swift,
+				Frontend/SMARTUITests/SMARTUITests.swift,
+				Frontend/SMARTUITests/SMARTUITestsLaunchTests.swift,
+			);
+			target = BE08EBED2C9D13FB0074C285 /* SMART */;
+		};
+		E34ED2142CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMARTUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Frontend/SMARTUITests/SMARTUITests.swift,
+				Frontend/SMARTUITests/SMARTUITestsLaunchTests.swift,
+			);
+			target = BE08EC092C9D13FE0074C285 /* SMARTUITests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -43,19 +61,11 @@
 		BE08EBF02C9D13FB0074C285 /* SMART */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				E34ED2132CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMART" target */,
 				BE08EC252C9D1C9D0074C285 /* Exceptions for "SMART" folder in "SMARTTests" target */,
+				E34ED2142CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMARTUITests" target */,
 			);
 			path = SMART;
-			sourceTree = "<group>";
-		};
-		BE08EC032C9D13FE0074C285 /* SMARTTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SMARTTests;
-			sourceTree = "<group>";
-		};
-		BE08EC0D2C9D13FE0074C285 /* SMARTUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SMARTUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -89,8 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				BE08EBF02C9D13FB0074C285 /* SMART */,
-				BE08EC032C9D13FE0074C285 /* SMARTTests */,
-				BE08EC0D2C9D13FE0074C285 /* SMARTUITests */,
 				BE08EBEF2C9D13FB0074C285 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -143,9 +151,6 @@
 			dependencies = (
 				BE08EC022C9D13FE0074C285 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				BE08EC032C9D13FE0074C285 /* SMARTTests */,
-			);
 			name = SMARTTests;
 			packageProductDependencies = (
 			);
@@ -165,9 +170,6 @@
 			);
 			dependencies = (
 				BE08EC0C2C9D13FE0074C285 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				BE08EC0D2C9D13FE0074C285 /* SMARTUITests */,
 			);
 			name = SMARTUITests;
 			packageProductDependencies = (
