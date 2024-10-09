@@ -33,25 +33,26 @@
 		BE08EC252C9D1C9D0074C285 /* Exceptions for "SMART" folder in "SMARTTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Frontend/Models/File.swift,
-				Frontend/SMARTTests/SMARTTests.swift,
+				IOS/Models/AuthResponse.swift,
+				IOS/Models/User.swift,
+				IOS/SMARTTests/SMARTTests.swift,
 			);
 			target = BE08EBFF2C9D13FE0074C285 /* SMARTTests */;
 		};
 		E34ED2132CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMART" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Frontend/SMARTTests/SMARTTests.swift,
-				Frontend/SMARTUITests/SMARTUITests.swift,
-				Frontend/SMARTUITests/SMARTUITestsLaunchTests.swift,
+				IOS/SMARTTests/SMARTTests.swift,
+				IOS/SMARTUITests/SMARTUITests.swift,
+				IOS/SMARTUITests/SMARTUITestsLaunchTests.swift,
 			);
 			target = BE08EBED2C9D13FB0074C285 /* SMART */;
 		};
 		E34ED2142CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMARTUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Frontend/SMARTUITests/SMARTUITests.swift,
-				Frontend/SMARTUITests/SMARTUITestsLaunchTests.swift,
+				IOS/SMARTUITests/SMARTUITests.swift,
+				IOS/SMARTUITests/SMARTUITestsLaunchTests.swift,
 			);
 			target = BE08EC092C9D13FE0074C285 /* SMARTUITests */;
 		};
