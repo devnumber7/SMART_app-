@@ -1,3 +1,11 @@
+//
+//  LoginView.swift
+//  SMART
+//
+//  Created by Anson Jiang on 11/13/24.
+//
+
+
 import SwiftUI
 
 struct LoginView: View {
@@ -29,7 +37,7 @@ struct LoginView: View {
                 }
                 
                 Button(action: {
-                    viewModel.login()
+                    viewModel.mockLogin()
                 }) {
                     Text("Login")
                         .foregroundColor(.white)
@@ -49,10 +57,17 @@ struct LoginView: View {
                 .sheet(isPresented: $showingRegister) {
                     RegisterView(viewModel: viewModel)
                 }
+                
+                // NavigationLink to HomeView, triggered by isLoggedIn
+                NavigationLink(
+                    destination: HomeView(session: viewModel.session),
+                    isActive: $viewModel.isAuthenticated
+                ) {
+                    EmptyView()  // Invisible link, activated programmatically
+                }
             }
             .padding()
             .navigationBarHidden(true)
         }
     }
 }
-

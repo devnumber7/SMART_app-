@@ -16,8 +16,18 @@ class SessionStore: ObservableObject {
     
     @Published var user: User?
     
-    private init() {
+     init() {
         self.token = KeychainHelper.standard.read(service: "auth", account: "token")
         // Optionally, fetch user details from the token or backend
+    }
+}
+
+
+class MockSessionStore : SessionStore {
+    override init() {
+        super.init();
+        self.token = "mockToken123";
+        self.user = User(username: "TestUser", email: "testuser@example.com");
+        
     }
 }

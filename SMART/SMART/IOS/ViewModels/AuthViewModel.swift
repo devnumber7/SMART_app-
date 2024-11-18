@@ -10,6 +10,11 @@ class AuthViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     
     private var cancellables = Set<AnyCancellable>()
+    var session: SessionStore;
+    
+    init(session: SessionStore = SessionStore.shared) {
+            self.session = session
+    }
     
     // Replace with your backend URL
     private let baseURL = "http://localhost:8000/api/auth"
@@ -90,6 +95,19 @@ class AuthViewModel: ObservableObject {
                 SessionStore.shared.user = response.user
             }
             .store(in: &cancellables)
+    }
+    
+    func mockLogin() {
+        if (email.isEmpty || password.isEmpty) {
+            self.errorMessage = "Please enter both email and password.";
+        }
+        else {
+            self.session.token = "mockToken123"
+            self.session.user = User(username: "TestUser", email: "testuser@example.com")
+            self.errorMessage = ""  // Clear any error message
+            self.password = "1234"
+            self.isAuthenticated = true
+        }
     }
 }
 
