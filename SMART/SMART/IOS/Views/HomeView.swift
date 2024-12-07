@@ -9,93 +9,86 @@ struct HomeView: View {
     
     var body: some View {
         
-
-        ZStack {
-            Color.darkBackground
-                .ignoresSafeArea()
+        NavigationView {
             
-            ScrollView {
-                VStack(spacing: 20) {
-                    
-                    VStack(alignment: .leading) {
-                        Text("Hi Maria")
-                            .font(.largeTitle)
-                            .bold()
-                            .foregroundColor(.primaryText)
-                    }
-                    
-                    
-                    if let user = session.user {
-                        Text("Welcome, \(user.username)!")
-                            .font(.title)
-                    }
-                    
-                    WeatherView()
-                    
-                    
-                    VStack {
+            
+            ZStack {
+                Color.darkBackground
+                    .ignoresSafeArea()
+                
+                ScrollView {
+                    VStack(spacing: 20) {
                         
-                        HStack (alignment: .bottom){
-                            Text("Your Devices")
-                                .font(.title)
+                        VStack(alignment: .leading) {
+                            Text("Hi Maria")
+                                .font(.largeTitle)
                                 .bold()
-                                .fontWeight(.heavy)
-                                .foregroundColor(.white)
-                                Spacer()
-                            Button(action: {}) {
-                                
-                                
-                               
-                                    
-                            }
-                                
-                                
+                                .foregroundColor(.primaryText)
                         }
                         
                         
+                        if let user = session.user {
+                            Text("Welcome, \(user.username)!")
+                                .font(.title)
+                        }
                         
-                        LazyVGrid(columns: column) {
-                            ForEach(0..<6) { index in
-                                Button(action: {
-                                    // Action for each grid item (currently does nothing)
-                                }) {
-                                    RoomCardView(deviceCount: 1, roomName: "Don", isSelected: index == 2 ? true: false )
-                                        .buttonStyle(PlainButtonStyle())
-                                    
-                                    
-                                }
+                        WeatherView()
+                        
+                        
+                        VStack {
+                            
+                            HStack (alignment: .bottom){
+                                Text("Your Devices")
+                                    .font(.title)
+                                    .bold()
+                                    .fontWeight(.heavy)
+                                    .foregroundColor(.white)
+                                Spacer()
+                                AddRoom()
+                                
+                                
                             }
-                            .padding()
-                        
+                            
+                            
+                            
+                            LazyVGrid(columns: column) {
+                                ForEach(0..<6) { index in
+                                    NavigationLink(destination: RoomView()) {
+                                        RoomCardView(deviceCount: 1, roomName: "RoomName", isSelected: index == 2)
+                                    }
+                                }
+                                .padding()
+                                
+                                
+                            }
+                            
+                            Button(action: {
+                                session.token = nil
+                                session.user = nil
+                            }) {
+                                Text("Logout")
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.red)
+                                    .cornerRadius(5)
+                            }
+                            
                             
                         }
-                  
-                        Button(action: {
-                            session.token = nil
-                            session.user = nil
-                        }) {
-                            Text("Logout")
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color.red)
-                                .cornerRadius(5)
-                        }
-
+                        .padding()
+                        
                         
                     }
-                    .padding()
-
-                        
-                    }
-                                    
-                
-                
+                    
+                    
+                    
+                    
+                }
                 
             }
             
         }
-        
     }
 }
 
