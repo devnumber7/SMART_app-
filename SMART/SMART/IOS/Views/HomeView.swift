@@ -1,5 +1,7 @@
 import SwiftUI
 
+
+
 struct HomeView: View {
     @ObservedObject var session = SessionStore.shared
     
@@ -10,6 +12,7 @@ struct HomeView: View {
     var body: some View {
         
         NavigationView {
+            
             
             
             ZStack {
