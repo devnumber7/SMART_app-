@@ -11,24 +11,24 @@ struct WeatherView: View {
             
             // Weather Card
             HStack(spacing: 16) {
-                Image(systemName: "cloud.sun.fill") // Use the appropriate SF Symbol
+                Image(systemName: "wind") // Use the appropriate SF Symbol
                     .resizable()
                     .scaledToFit()
                     .frame(width: 50, height: 50)
-                    .foregroundColor(.yellow) // Set color for icon
+                    .foregroundColor(.white) // Set color for icon
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Mostly Cloudy")
+                    Text("Windy")
                         .font(.headline)
                         .foregroundColor(.white)
-                    Text("Sydney, Australia")
+                    Text("BlacksBurg")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
                 
                 Spacer()
                 
-                Text("22°")
+                Text("30°")
                     .font(.system(size: 48, weight: .bold))
                     .foregroundColor(.white)
             }
@@ -39,17 +39,17 @@ struct WeatherView: View {
             // Weather Details Grid
             HStack {
                 VStack {
-                    Text("27°C")
+                    Text("30°F")
                         .font(.title3)
                         .bold()
                         .foregroundColor(.white)
-                    Text("Sensible")
+                    Text("Temp")
                         .font(.caption)
                         .foregroundColor(.gray)
                 }
                 Spacer()
                 VStack {
-                    Text("4%")
+                    Text("0.5 in")
                         .font(.title3)
                         .bold()
                         .foregroundColor(.white)
@@ -59,7 +59,7 @@ struct WeatherView: View {
                 }
                 Spacer()
                 VStack {
-                    Text("66%")
+                    Text("73%")
                         .font(.title3)
                         .bold()
                         .foregroundColor(.white)
@@ -69,7 +69,7 @@ struct WeatherView: View {
                 }
                 Spacer()
                 VStack {
-                    Text("16 km/h")
+                    Text("18 mph")
                         .font(.title3)
                         .bold()
                         .foregroundColor(.white)

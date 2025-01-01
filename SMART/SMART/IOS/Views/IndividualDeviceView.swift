@@ -1,50 +1,81 @@
-//
-//  IndividualDeviceView.swift
-//  SMART
-//
-//  Created by Anson Jiang on 12/7/24.
-//
+
 import SwiftUI
-struct devices: View {
-    @State var isSwitchOn: Bool = true
+
+struct Devices: View {
+    let column = Array(repeating: GridItem(.flexible()), count: 2);
     
     
     var body: some View {
-            ZStack {
+        
+        
+        HStack(spacing: 20) {
+            Spacer()
+            // Example for Device 1
+            VStack (spacing: 20) {
                 
-                Color.cardBackground
-                    .cornerRadius(15)
-
-                VStack (spacing: 10){
-                    Image(systemName: "bed.double.fill") // Placeholder image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                        .clipShape(Circle())
+                
+                
+                ZStack {
+                    Color.cardBackground
+                        .cornerRadius(15)
                     
-                    Text("DeviceName")
-                        .font(.headline)
-                        .foregroundColor(.primaryText)
+                    VStack(spacing: 10) {
+                        Image(systemName: "lamp.desk.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60)
+                  
+                            .foregroundColor(.white)
+                        
+                        Text("Bedroom Light")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            
+                        
+                        CustomToggleView(deviceId: "1") // Device ID for Bedroom Light
+                    }
+                    .padding()
+                }
+                .frame(width: 200, alignment: .center)
+                
+                
+                // Example for Device 2
+                ZStack {
                     
-                    Text(" Devices")
-                        .font(.subheadline)
-                        .foregroundColor(.secondaryText)
                     
-                    HStack {
-                                Toggle("Switch", isOn: $isSwitchOn)
-                                    .toggleStyle(CustomToggle())
-                                    .foregroundStyle(.white)
-                            }
+                    Color.cardBackground
+                        .cornerRadius(15)
+                    
+                    VStack(spacing: 10) {
+                        Image(systemName: "fan.desk")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60)
+                            
+                            .foregroundColor(.white)
+                        
+                        Text("Living Room Fan")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                        
+                        CustomToggleView(deviceId: "2") // Device ID for Living Room TV
+                    }
+                    .padding()
+                    .frame(width: 200, alignment: .center)
                     
                 }
-                .padding()
+            }
+            .padding(.leading)
+            .frame(alignment: .center)
+           
+                
+                
+                
                 
             }
+        .padding(.leading, 150)
+        
             
-        }
         
-        
-    
-    
+    }
 }
-

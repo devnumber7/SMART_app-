@@ -11,6 +11,7 @@ import SwiftUI
 struct LoginView: View {
     @ObservedObject var viewModel: AuthViewModel
     @State private var showingRegister = false
+    @Binding var roomCount: Int
     
     var body: some View {
         NavigationView {
@@ -60,7 +61,7 @@ struct LoginView: View {
                 
                 // NavigationLink to HomeView, triggered by isLoggedIn
                 NavigationLink(
-                    destination: HomeView(session: viewModel.session),
+                    destination: HomeView(session: viewModel.session, roomCount: $roomCount),
                     isActive: $viewModel.isAuthenticated
                 ) {
                     EmptyView()  // Invisible link, activated programmatically

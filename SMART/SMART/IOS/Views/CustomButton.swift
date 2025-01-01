@@ -6,8 +6,16 @@
 //
 import SwiftUI
 struct AddRoom: View {
+    
+    @Binding var roomCount: Int;
+    
+    
     var body: some View {
-        Button(action: {}) {
+        Button(action: {
+            
+            roomCount += 1;
+            
+        }) {
             Text("ADD")
                 .font(.title)
                 
@@ -32,7 +40,12 @@ struct AddRoom: View {
 
 struct AddDevices: View {
     var body: some View {
-        Button(action: {}) {
+        Button(action: {
+            
+            
+            
+            
+        }) {
             Text("+")
                 .font(.title)
                 

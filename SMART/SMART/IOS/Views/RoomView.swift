@@ -22,9 +22,8 @@ struct RoomView: View {
                     
                     
                     LazyVGrid(columns: column, spacing: 20) {
-                        devices()
-                        devices()
-                        devices()
+                        Devices()
+                        
                     }
                     .padding()
                     

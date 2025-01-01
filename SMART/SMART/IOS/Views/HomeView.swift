@@ -5,7 +5,7 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var session = SessionStore.shared
     
-    
+    @Binding var roomCount: Int
     
     let column = Array(repeating: GridItem(.flexible()), count: 2);
     
@@ -23,7 +23,7 @@ struct HomeView: View {
                     VStack(spacing: 20) {
                         
                         VStack(alignment: .leading) {
-                            Text("Hi Maria")
+                            Text("Hi Ethan")
                                 .font(.largeTitle)
                                 .bold()
                                 .foregroundColor(.primaryText)
@@ -31,8 +31,7 @@ struct HomeView: View {
                         
                         
                         if let user = session.user {
-                            Text("Welcome, \(user.username)!")
-                                .font(.title)
+                           
                         }
                         
                         WeatherView()
@@ -41,13 +40,13 @@ struct HomeView: View {
                         VStack {
                             
                             HStack (alignment: .bottom){
-                                Text("Your Devices")
+                                Text("Your Rooms")
                                     .font(.title)
                                     .bold()
                                     .fontWeight(.heavy)
                                     .foregroundColor(.white)
                                 Spacer()
-                                AddRoom()
+                                AddRoom(roomCount: $roomCount)
                                 
                                 
                             }
@@ -55,9 +54,13 @@ struct HomeView: View {
                             
                             
                             LazyVGrid(columns: column) {
-                                ForEach(0..<6) { index in
+                                
+                                
+                                ForEach(0..<roomCount, id: \.self) { index in
+                                    
                                     NavigationLink(destination: RoomView()) {
-                                        RoomCardView(deviceCount: 1, roomName: "RoomName", isSelected: index == 2)
+                                        
+                                        RoomCardView(deviceCount: 2, roomName: "Room \(index + 1)" , isSelected: index == 2)
                                     }
                                 }
                                 .padding()
