@@ -33,25 +33,29 @@
 		BE08EC252C9D1C9D0074C285 /* Exceptions for "SMART" folder in "SMARTTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Frontend/Models/File.swift,
-				Frontend/SMARTTests/SMARTTests.swift,
+				IOS/Models/AuthResponse.swift,
+				IOS/Models/User.swift,
+				IOS/Models/WeatherModel.swift,
+				IOS/SMARTTests/SMARTTests.swift,
 			);
 			target = BE08EBFF2C9D13FE0074C285 /* SMARTTests */;
 		};
 		E34ED2132CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMART" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Frontend/SMARTTests/SMARTTests.swift,
-				Frontend/SMARTUITests/SMARTUITests.swift,
-				Frontend/SMARTUITests/SMARTUITestsLaunchTests.swift,
+				Backend,
+				Info.plist,
+				IOS/SMARTTests/SMARTTests.swift,
+				IOS/SMARTUITests/SMARTUITests.swift,
+				IOS/SMARTUITests/SMARTUITestsLaunchTests.swift,
 			);
 			target = BE08EBED2C9D13FB0074C285 /* SMART */;
 		};
 		E34ED2142CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMARTUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Frontend/SMARTUITests/SMARTUITests.swift,
-				Frontend/SMARTUITests/SMARTUITestsLaunchTests.swift,
+				IOS/SMARTUITests/SMARTUITests.swift,
+				IOS/SMARTUITests/SMARTUITestsLaunchTests.swift,
 			);
 			target = BE08EC092C9D13FE0074C285 /* SMARTUITests */;
 		};
@@ -64,6 +68,10 @@
 				E34ED2132CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMART" target */,
 				BE08EC252C9D1C9D0074C285 /* Exceptions for "SMART" folder in "SMARTTests" target */,
 				E34ED2142CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMARTUITests" target */,
+			);
+			explicitFolders = (
+				Backend,
+				QRCodeReader,
 			);
 			path = SMART;
 			sourceTree = "<group>";
@@ -385,6 +393,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = QRCodeReader;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -411,20 +420,22 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SMART/Preview Content\"";
-				DEVELOPMENT_TEAM = 9S67Y6QRQ2;
+				DEVELOPMENT_TEAM = 7CS742M3GY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SMART/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Indie-kreator.SMART";
+				PRODUCT_BUNDLE_IDENTIFIER = F24IDPro.SMART;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -440,20 +451,22 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SMART/Preview Content\"";
-				DEVELOPMENT_TEAM = 9S67Y6QRQ2;
+				DEVELOPMENT_TEAM = 7CS742M3GY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SMART/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Indie-kreator.SMART";
+				PRODUCT_BUNDLE_IDENTIFIER = F24IDPro.SMART;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
