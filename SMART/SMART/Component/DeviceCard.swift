@@ -4,32 +4,37 @@
 //
 //  Created by Aryan Palit on 3/3/25.
 //
-
 import SwiftUI
+import HomeKit
 
-// A card view to display each device
 struct DeviceCard: View {
-    let device: Device
-    
+    let accessory: HMAccessory
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            // Icon with a material background for depth
-            Image(systemName: "dot.radiowaves.left.and.right")
-                .font(.system(size: 40))
-                .padding()
-                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
-            
-            Text(device.name)
+        VStack(alignment: .leading, spacing: 8) {
+            // Device name using a dynamic, accessible font
+            Text(accessory.name)
                 .font(.headline)
                 .foregroundColor(.primary)
+                .lineLimit(1)
+                .accessibilityLabel("Device name")
+                .accessibilityValue(accessory.name)
             
-            Text(device.status)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+            // Connectivity status indicator (if applicable)
+            HStack(spacing: 4) {
+                Image(systemName: accessory.isReachable ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+                    .foregroundColor(accessory.isReachable ? .green : .yellow)
+                    .accessibilityHidden(true)
+                Text(accessory.isReachable ? "Connected" : "Not Connected")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
         }
         .padding()
-        .background(Color(.secondarySystemBackground))
-        .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
+        .background(Color(UIColor.systemBackground))
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+        .accessibilityElement(children: .combine)
     }
 }
+

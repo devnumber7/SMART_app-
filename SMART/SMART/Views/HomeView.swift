@@ -6,47 +6,40 @@
 //
 
 import SwiftUI
+import HomeKit
 
 struct HomeView: View {
+    let home: HMHome
+    
     var body: some View {
         NavigationStack {
-            DeviceListView()
+            DeviceListView(home: home)
         }
     }
 }
 
-// Example sample data
-let sampleDevices = [
-    Device(name: "Living Room TV", status: "Active"),
-    Device(name: "Bedroom Speaker", status: "Idle"),
-    Device(name: "Kitchen Fridge", status: "Active")
-]
-
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
 
 struct DeviceListView: View {
+    let home: HMHome
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                // Header
-                Text("Welcome Home!")
+                // Personalized header using the home's name
+                Text("Welcome Home, \(home.name)!")
                     .font(.system(size: 34, weight: .bold, design: .rounded))
                     .padding(.top)
                 
-                // Section Title
+                // Section title
                 Text("Connected Devices")
                     .font(.headline)
                     .foregroundColor(.secondary)
-        
+                
+                // Horizontal scroll view for devices (using the home’s accessories)
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 16) {
-                        ForEach(sampleDevices) { device in
-                            DeviceCard(device: device)
+                        ForEach(home.accessories, id: \.uniqueIdentifier) { accessory in
+                            DeviceCard(accessory: accessory)
                         }
                     }
                     .padding(.horizontal)

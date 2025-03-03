@@ -13,4 +13,5 @@ struct Home: Identifiable {
     let id = UUID()
     let name: String
     let location: String
+    let devices : [Accessory]
 }

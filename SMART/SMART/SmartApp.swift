@@ -12,7 +12,7 @@ import SwiftUI
 struct SmartApp: App{
     var body : some Scene{
         WindowGroup{
-            HomeView()
+            MainView()
         }
     }
 }
