@@ -30,34 +30,12 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BE08EC252C9D1C9D0074C285 /* Exceptions for "SMART" folder in "SMARTTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				IOS/Models/AuthResponse.swift,
-				IOS/Models/User.swift,
-				IOS/Models/WeatherModel.swift,
-				IOS/SMARTTests/SMARTTests.swift,
-			);
-			target = BE08EBFF2C9D13FE0074C285 /* SMARTTests */;
-		};
 		E34ED2132CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMART" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Backend,
 				Info.plist,
-				IOS/SMARTTests/SMARTTests.swift,
-				IOS/SMARTUITests/SMARTUITests.swift,
-				IOS/SMARTUITests/SMARTUITestsLaunchTests.swift,
 			);
 			target = BE08EBED2C9D13FB0074C285 /* SMART */;
-		};
-		E34ED2142CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMARTUITests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				IOS/SMARTUITests/SMARTUITests.swift,
-				IOS/SMARTUITests/SMARTUITestsLaunchTests.swift,
-			);
-			target = BE08EC092C9D13FE0074C285 /* SMARTUITests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -66,12 +44,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				E34ED2132CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMART" target */,
-				BE08EC252C9D1C9D0074C285 /* Exceptions for "SMART" folder in "SMARTTests" target */,
-				E34ED2142CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMARTUITests" target */,
-			);
-			explicitFolders = (
-				Backend,
-				QRCodeReader,
 			);
 			path = SMART;
 			sourceTree = "<group>";
@@ -198,6 +170,7 @@
 				TargetAttributes = {
 					BE08EBED2C9D13FB0074C285 = {
 						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1620;
 					};
 					BE08EBFF2C9D13FE0074C285 = {
 						CreatedOnToolsVersion = 16.0;
@@ -417,10 +390,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SMART/Preview Content\"";
-				DEVELOPMENT_TEAM = 7CS742M3GY;
+				DEVELOPMENT_TEAM = 9S67Y6QRQ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SMART/Info.plist;
@@ -438,6 +412,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = F24IDPro.SMART;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -448,10 +423,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SMART/Preview Content\"";
-				DEVELOPMENT_TEAM = 7CS742M3GY;
+				DEVELOPMENT_TEAM = 9S67Y6QRQ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SMART/Info.plist;
