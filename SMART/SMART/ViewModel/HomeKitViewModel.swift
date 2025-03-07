@@ -6,10 +6,12 @@
 //
 import SwiftUI
 import HomeKit
-import Combine
+
+// MARK: - HomeStore with delete method
 
 class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
     
+    @Published var accessoriesInCurrentHome: [HMAccessory] = []
     @Published var homes: [HMHome] = []
     @Published var accessories: [HMAccessory] = []
     @Published var services: [HMService] = []
@@ -19,7 +21,7 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
     @Published var isLoading: Bool = true
     
     private var manager: HMHomeManager?
-
+    
     override init() {
         super.init()
         print("DEBUG: HomeStore initializing")
@@ -44,7 +46,6 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
             self.homes = manager.homes
             self.isLoading = false
             
-            // Only set authorization status if we haven't received it yet
             if !self.authorizationStatus {
                 self.authorizationStatus = true
                 self.errorMessage = nil
@@ -95,6 +96,15 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
     
     // MARK: - Public Methods
     
+    @MainActor
+    func fetchHomes() async{
+        isLoading = true
+        
+        homes = manager?.homes ?? []
+        
+        isLoading = false
+    }
+    
     func addHome(name: String) {
         guard let manager = manager else {
             print("ERROR: HMHomeManager not initialized")
@@ -110,7 +120,7 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
                 return
             }
             
-            if let home = home {
+            if home != nil {
                 DispatchQueue.main.async {
                     print("DEBUG: Successfully added home: \(name)")
                 }
@@ -118,7 +128,37 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
         }
     }
     
-    // MARK: - Accessory Methods
+    // New deletion method
+    func deleteHome(home: HMHome) {
+        guard let manager = manager else {
+            print("ERROR: HMHomeManager not initialized")
+            return
+        }
+        
+        manager.removeHome(home) { [weak self] error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    self?.errorMessage = "Failed to delete home: \(error.localizedDescription)"
+                } else {
+                    self?.homes.removeAll(where: { $0.uniqueIdentifier == home.uniqueIdentifier })
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    // MARK: - Accessory Methods (unchanged)
+    
+    
+    
+    
+    
+    
     
     func findAccessories(homeId: UUID) {
         guard let devices = homes.first(where: { $0.uniqueIdentifier == homeId })?.accessories else {
@@ -127,6 +167,11 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
         }
         accessories = devices
     }
+    
+    func loadAccessories(for home: HMHome) {
+         accessoriesInCurrentHome = home.accessories
+     }
+
     
     func findServices(accessoryId: UUID, homeId: UUID) {
         guard let accessoryServices = homes.first(where: { $0.uniqueIdentifier == homeId })?
@@ -148,4 +193,60 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
         }
         characteristics = serviceCharacteristics
     }
+    
+    func toggleAccessoryState(for accessory: HMAccessory, completion: ((Bool) -> Void)? = nil) {
+           // Look for a service that supports power control
+           guard let powerService = accessory.services.first(where: {
+               $0.serviceType == HMServiceTypeLightbulb ||
+               $0.serviceType == HMServiceTypeOutlet ||
+               $0.serviceType == HMServiceTypeSwitch
+           }) else {
+               print("No suitable power service found for \(accessory.name)")
+               completion?(false)
+               return
+           }
+           
+           // Locate the power state characteristic
+           guard let powerCharacteristic = powerService.characteristics.first(where: {
+               $0.characteristicType == HMCharacteristicTypePowerState
+           }) else {
+               print("No power characteristic available for \(accessory.name)")
+               completion?(false)
+               return
+           }
+           
+           // Determine the new state by toggling the current value
+           let currentValue = powerCharacteristic.value as? Bool ?? false
+           let newValue = !currentValue
+           
+           // Write the new value to the characteristic
+           powerCharacteristic.writeValue(newValue) { error in
+               if let error = error {
+                   print("Error toggling state for \(accessory.name): \(error.localizedDescription)")
+                   completion?(false)
+               } else {
+                   print("\(accessory.name) toggled successfully to \(newValue ? "ON" : "OFF")")
+                   completion?(true)
+               }
+           }
+       }
+    func removeAccessory(home: HMHome, accessory: HMAccessory) {
+            home.removeAccessory(accessory) { [weak self] error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        self?.errorMessage = "Failed to remove accessory: \(error.localizedDescription)"
+                    } else {
+                        print("Accessory removed successfully from \(home.name)")
+                        
+                        // Optionally, if you maintain a separate `accessories` array,
+                        // update it here to remove the accessory from the local list:
+                        if let index = self?.accessories.firstIndex(where: {
+                            $0.uniqueIdentifier == accessory.uniqueIdentifier
+                        }) {
+                            self?.accessories.remove(at: index)
+                        }
+                    }
+                }
+            }
+        }
 }

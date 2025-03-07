@@ -10,45 +10,66 @@ import HomeKit
 
 struct HomeView: View {
     let home: HMHome
+    @StateObject var homeStore = HomeStore()
     
     var body: some View {
         NavigationStack {
-            DeviceListView(home: home)
+            DeviceListView(home: home, homeStore: homeStore)
+                .navigationTitle("Dashboard")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
         }
     }
 }
 
 
+
 struct DeviceListView: View {
     let home: HMHome
+    @ObservedObject var homeStore: HomeStore
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                // Personalized header using the home's name
-                Text("Welcome Home, \(home.name)!")
-                    .font(.system(size: 34, weight: .bold, design: .rounded))
-                    .padding(.top)
+            VStack(alignment: .leading, spacing: 24) {
+                // Hero-like header with a large “Welcome” text
+                HeaderSection(home: home)
                 
-                // Section title
+                // Horizontal scroll for devices (accessories)
                 Text("Connected Devices")
                     .font(.headline)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal)
                 
-                // Horizontal scroll view for devices (using the home’s accessories)
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 16) {
-                        ForEach(home.accessories, id: \.uniqueIdentifier) { accessory in
-                            DeviceCard(accessory: accessory)
+                        ForEach(homeStore.accessoriesInCurrentHome, id: \.uniqueIdentifier) { accessory in
+                            DeviceCard(home: home,
+                                       accessory: accessory,
+                                       homeStore: homeStore)
+                                .transition(.scale.combined(with: .opacity))
+                                .animation(.spring(), value: home.accessories)
                         }
                     }
                     .padding(.horizontal)
                 }
             }
-            .padding()
+            .padding(.bottom, 40)
         }
+        // Remove default scroll background on iOS 16+
         .scrollContentBackground(.hidden)
-        .background(Color(.systemGroupedBackground).ignoresSafeArea())
-        .navigationTitle("Dashboard")
+        .background(
+            // A subtle gradient background
+            LinearGradient(
+                gradient: Gradient(colors: [.blue.opacity(0.15), .indigo.opacity(0.25)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+        ).onAppear{
+            homeStore.loadAccessories(for: home)
+        }
     }
 }
+
+
+
