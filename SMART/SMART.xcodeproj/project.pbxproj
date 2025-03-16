@@ -30,7 +30,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		E34ED2132CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMART" target */ = {
+		BE379BB22D86C35500DC14D7 /* Exceptions for "SMART" folder in "SMART" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -43,7 +43,7 @@
 		BE08EBF02C9D13FB0074C285 /* SMART */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				E34ED2132CAC69E300F20C98 /* Exceptions for "SMART" folder in "SMART" target */,
+				BE379BB22D86C35500DC14D7 /* Exceptions for "SMART" folder in "SMART" target */,
 			);
 			path = SMART;
 			sourceTree = "<group>";

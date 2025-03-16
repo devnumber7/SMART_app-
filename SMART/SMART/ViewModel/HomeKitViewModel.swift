@@ -4,13 +4,11 @@
 //
 //  Created by Aryan Palit on 3/3/25.
 //
-import SwiftUI
+import Foundation
 import HomeKit
-
-// MARK: - HomeStore with delete method
+import SwiftUI
 
 class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
-    
     @Published var accessoriesInCurrentHome: [HMAccessory] = []
     @Published var homes: [HMHome] = []
     @Published var accessories: [HMAccessory] = []
@@ -97,11 +95,9 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
     // MARK: - Public Methods
     
     @MainActor
-    func fetchHomes() async{
+    func fetchHomes() async {
         isLoading = true
-        
         homes = manager?.homes ?? []
-        
         isLoading = false
     }
     
@@ -128,7 +124,6 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
         }
     }
     
-    // New deletion method
     func deleteHome(home: HMHome) {
         guard let manager = manager else {
             print("ERROR: HMHomeManager not initialized")
@@ -146,19 +141,7 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    // MARK: - Accessory Methods (unchanged)
-    
-    
-    
-    
-    
-    
+    // MARK: - Accessory Methods
     
     func findAccessories(homeId: UUID) {
         guard let devices = homes.first(where: { $0.uniqueIdentifier == homeId })?.accessories else {
@@ -170,8 +153,7 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
     
     func loadAccessories(for home: HMHome) {
          accessoriesInCurrentHome = home.accessories
-     }
-
+    }
     
     func findServices(accessoryId: UUID, homeId: UUID) {
         guard let accessoryServices = homes.first(where: { $0.uniqueIdentifier == homeId })?
@@ -195,58 +177,52 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
     }
     
     func toggleAccessoryState(for accessory: HMAccessory, completion: ((Bool) -> Void)? = nil) {
-           // Look for a service that supports power control
-           guard let powerService = accessory.services.first(where: {
-               $0.serviceType == HMServiceTypeLightbulb ||
-               $0.serviceType == HMServiceTypeOutlet ||
-               $0.serviceType == HMServiceTypeSwitch
-           }) else {
-               print("No suitable power service found for \(accessory.name)")
-               completion?(false)
-               return
-           }
-           
-           // Locate the power state characteristic
-           guard let powerCharacteristic = powerService.characteristics.first(where: {
-               $0.characteristicType == HMCharacteristicTypePowerState
-           }) else {
-               print("No power characteristic available for \(accessory.name)")
-               completion?(false)
-               return
-           }
-           
-           // Determine the new state by toggling the current value
-           let currentValue = powerCharacteristic.value as? Bool ?? false
-           let newValue = !currentValue
-           
-           // Write the new value to the characteristic
-           powerCharacteristic.writeValue(newValue) { error in
-               if let error = error {
-                   print("Error toggling state for \(accessory.name): \(error.localizedDescription)")
-                   completion?(false)
-               } else {
-                   print("\(accessory.name) toggled successfully to \(newValue ? "ON" : "OFF")")
-                   completion?(true)
-               }
-           }
-       }
+        guard let powerService = accessory.services.first(where: {
+            $0.serviceType == HMServiceTypeLightbulb ||
+            $0.serviceType == HMServiceTypeOutlet ||
+            $0.serviceType == HMServiceTypeSwitch
+        }) else {
+            print("No suitable power service found for \(accessory.name)")
+            completion?(false)
+            return
+        }
+        
+        guard let powerCharacteristic = powerService.characteristics.first(where: {
+            $0.characteristicType == HMCharacteristicTypePowerState
+        }) else {
+            print("No power characteristic available for \(accessory.name)")
+            completion?(false)
+            return
+        }
+        
+        let currentValue = powerCharacteristic.value as? Bool ?? false
+        let newValue = !currentValue
+        
+        powerCharacteristic.writeValue(newValue) { error in
+            if let error = error {
+                print("Error toggling state for \(accessory.name): \(error.localizedDescription)")
+                completion?(false)
+            } else {
+                print("\(accessory.name) toggled successfully to \(newValue ? "ON" : "OFF")")
+                completion?(true)
+            }
+        }
+    }
+    
     func removeAccessory(home: HMHome, accessory: HMAccessory) {
-            home.removeAccessory(accessory) { [weak self] error in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        self?.errorMessage = "Failed to remove accessory: \(error.localizedDescription)"
-                    } else {
-                        print("Accessory removed successfully from \(home.name)")
-                        
-                        // Optionally, if you maintain a separate `accessories` array,
-                        // update it here to remove the accessory from the local list:
-                        if let index = self?.accessories.firstIndex(where: {
-                            $0.uniqueIdentifier == accessory.uniqueIdentifier
-                        }) {
-                            self?.accessories.remove(at: index)
-                        }
+        home.removeAccessory(accessory) { [weak self] error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    self?.errorMessage = "Failed to remove accessory: \(error.localizedDescription)"
+                } else {
+                    print("Accessory removed successfully from \(home.name)")
+                    if let index = self?.accessories.firstIndex(where: {
+                        $0.uniqueIdentifier == accessory.uniqueIdentifier
+                    }) {
+                        self?.accessories.remove(at: index)
                     }
                 }
             }
         }
+    }
 }
